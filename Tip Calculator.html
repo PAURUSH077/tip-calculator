@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator</title>
+    <style>
+        /* Set the font family for the entire body */
+        body {
+            font-family: Arial, sans-serif;
+
+            /* Center-align text within the body */
+            text-align: center;
+
+            /* Add margin around the body content */
+            margin: 20px;
+        }
+
+        /* Style for the calculator container */
+        #calculator {
+            /* Set a fixed width for the calculator */
+            width: 300px;
+
+            /* Center the calculator horizontally */
+            margin: 0 auto;
+        }
+
+
+        /* Style for input elements (text and number inputs) */
+        input {
+            /* Make the input element take up 100% of the width */
+            width: 100%;
+
+            /* Add padding inside the input */
+            padding: 10px;
+
+            /* Add margin at the bottom of the input */
+            margin-bottom: 10px;
+
+            /* Include padding and border in the element's total width and height */
+            box-sizing: border-box;
+        }
+
+        /* Style for button element */
+        button {
+            /* Make the button take up 100% of the width */
+            width: 100%;
+
+            /* Add padding inside the button */
+            padding: 10px;
+
+            /* Set background color for the button */
+            background-color: #4CAF50;
+
+            /* Set text color for the button */
+            color: white;
+
+            /* Remove border around the button */
+            border: none;
+
+            /* Set the cursor to a pointer when hovering over the button */
+            cursor: pointer;
+        }
+
+        /* Style for the results section */
+        #results {
+            /* Add margin at the top of the results section */
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Container for the tip calculator -->
+    <div id="calculator">
+        <!-- Heading for the tip calculator -->
+        <h2>Tip Calculator</h2>
+
+            <!-- Label and input for entering the total bill amount -->
+            <label for="totalBill">Total Bill ($):</label>
+            <input type="number" id="totalBill" placeholder="Enter total bill">
+
+            <!-- Label and input for entering the tip percentage -->
+            <label for="tipPercentage">Tip Percentage (%):</label>
+            <input type="number" id="tipPercentage" placeholder="Enter tip percentage">
+
+            <!-- Label and input for entering the number of people -->
+            <label for="numberOfPeople">Number of People:</label>
+            <input type="number" id="numberOfPeople" placeholder="Enter number of people" value="1">
+
+            <!-- Label and input for entering the tax percentage -->
+            <label for="taxPercentage">Tax Percentage (%):</label>
+            <input type="number" id="taxPercentage" placeholder="Enter tax percentage">
+
+            <!-- Button to trigger the tip calculation -->
+            <button onclick="calculateTip()">Calculate Tip</button>
+
+            <!-- Container for displaying the calculated results -->
+            <div id="results">
+                <!-- Subheading for the results section -->
+                <h3>Results:</h3>
+
+                <!-- Paragraph to display the calculated tip amount -->
+                <p id="tipAmount">Tip Amount: $0.00</p>
+
+                <!-- Paragraph to display the total amount with tip -->
+                <p id="totalWithTip">Total with Tip: $0.00</p>
+
+                <!-- Paragraph to display the total amount per person (if split) -->
+                <p id="totalPerPerson">Total per Person: $0.00</p>
+            </div>
+    </div>
+
+
+    <script>
+        // Function to calculate the tip and display results
+        function calculateTip() {
+            // Get values from input fields and convert to floating-point numbers
+            var totalBill = parseFloat(document.getElementById('totalBill').value);
+            var tipPercentage = parseFloat(document.getElementById('tipPercentage').value);
+            var numberOfPeople = parseFloat(document.getElementById('numberOfPeople').value);
+            var taxPercentage = parseFloat(document.getElementById('taxPercentage').value);
+
+            // Validate input: Check if any of the input values is not a valid number
+            if (isNaN(totalBill) || isNaN(tipPercentage) || isNaN(numberOfPeople) || isNaN(taxPercentage)) {
+                // Display an alert if any input is not a valid number
+                alert('Please enter valid numbers for all fields.');
+                // Exit the function early if input is invalid
+                return;
+            }
+
+            // Calculate tip amount based on total bill, tip percentage, and tax percentage
+            var tipAmount = (totalBill + totalBill * (taxPercentage / 100)) * (tipPercentage / 100);
+
+            // Calculate the total bill amount with tip
+            var totalWithTip = totalBill + tipAmount;
+
+            // Calculate the total amount per person (if splitting the bill)
+            var totalPerPerson = totalWithTip / numberOfPeople;
+
+            // Display results in the HTML document
+            document.getElementById('tipAmount').innerHTML = 'Tip Amount: $' + tipAmount.toFixed(2);
+            document.getElementById('totalWithTip').innerHTML = 'Total with Tip: $' + totalWithTip.toFixed(2);
+            document.getElementById('totalPerPerson').innerHTML = 'Total per Person: $' + totalPerPerson.toFixed(2);
+        }
+    </script>
+
+</body>
+</html>
